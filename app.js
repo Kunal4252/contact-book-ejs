@@ -6,6 +6,7 @@ connectDB();
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/contact", router);
 
 app.listen(4000, () => {

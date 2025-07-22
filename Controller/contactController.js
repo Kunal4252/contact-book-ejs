@@ -14,4 +14,39 @@ const addContact = async (req, res) => {
   }
 };
 
-module.exports = { addContact };
+const getContact = async (req, res) => {
+  try {
+    const result = await contactModel.find();
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateContact = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const data = {
+      name: req.body.name,
+      contact: req.body.contact,
+      email: req.body.email,
+    };
+    const result = await contactModel.findByIdAndUpdate(id, data, {
+      new: true,
+    });
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteContact = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const result = await contactModel.findByIdAndDelete(id);
+    res.json(result);
+  } catch (error) {
+    console.log(error);
+  }
+};
+module.exports = { addContact, getContact, updateContact, deleteContact };
